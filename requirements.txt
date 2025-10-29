@@ -1,0 +1,15 @@
+torch
+torchvision
+torchaudio
+ultralytics
+sahi[all]
+opencv-python
+numpy
+matplotlib
+pandas
+albumentations
+tqdm
+pyyaml
+fiftyone
+wandb
+seaborn
