@@ -4,6 +4,7 @@
 2\) python scripts\train.py 
 3\) python scripts\predict.py 
 
+link dataset: https://datasetninja.com/zalo-traffic-sign
 
 Python 3.11.9
 
