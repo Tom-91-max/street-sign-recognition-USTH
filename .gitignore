@@ -1,5 +1,6 @@
 data/ 
 runs/ 
+*.zip
 *.pt 
 *.weights 
 *.mp4 

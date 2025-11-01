@@ -3,8 +3,12 @@
 1\) pip install -r requirements.txt 
 2\) python scripts\train.py 
 3\) python scripts\predict.py 
+feature/data-B
+4\) data set:https://drive.google.com/file/d/1c_t28KxcMOdwGIrF-8vC7CzGlAD9pj7j/view?usp=drive_link
+
 
 link dataset: https://datasetninja.com/zalo-traffic-sign
+ main
 
 Python 3.11.9
 
