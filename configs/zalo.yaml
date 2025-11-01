@@ -4,10 +4,10 @@ val: images/val
 test: images/test
 nc: 7
 names:
-  1: Cấm ngược chiều
-  2: Cấm dừng và đỗ
-  3: Cấm rẽ
-  4: Giới hạn tốc độ
-  5: Cấm còn lại
-  6: Nguy hiểm
-  7: Hiệu lệnh
+  0: warning
+  1: no parking/waiting
+  2: other prohibition signs
+  3: no entry
+  4: mandatory
+  5: max speed
+  6: no turning
