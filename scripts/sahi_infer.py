@@ -1,7 +1,6 @@
 # scripts/sahi_infer.py
 # ----------------------------------------------
 # SAHI Inference Script for Small Object Detection Improvement
-# Thành viên D - Small-Object Specialist
 # ----------------------------------------------
 
 from sahi import AutoDetectionModel
@@ -9,10 +8,10 @@ from sahi.predict import get_sliced_prediction
 import os
 
 def main():
-    # === 1️⃣ Đường dẫn model (best.pt) từ thành viên C ===
+    # === 1️⃣ Đường dẫn model (best.pt) từ thành viên C 
     model_path = "runs/detect/zalo_v8s_960/weights/best.pt"
 
-    # === 2️⃣ Thư mục chứa ảnh test (bạn có thể đổi nếu cần) ===
+    # === 2️⃣ Thư mục chứa ảnh test===
     # Nếu team có thư mục test riêng:
     #   image_dir = "data/images/test"
     # Hoặc dùng ảnh dự đoán baseline của C để so sánh:
