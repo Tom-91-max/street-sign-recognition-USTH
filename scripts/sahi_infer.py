@@ -102,11 +102,12 @@ def log_experiment_to_csv(
     epochs=100,
     augment="default",
     SAHI=True,
-    mAP50=0.90,                   #=== thay số thực tế khi có kết quả
-    mAP5095=0.64,
-    Precision=0.82,
-    Recall=0.80,
+    mAP50=0.22635,                   #=== thay số thực tế khi có kết quả
+    mAP5095=0.1254,
+    Precision=0.49084,
+    Recall=0.22743,
     note="SAHI"
+):
 ):
     # Kiểm tra file CSV có tồn tại chưa — nếu chưa thì tạo header
     file_exists = os.path.exists(csv_path)
@@ -137,9 +138,9 @@ if __name__ == "__main__":
 
     # 3️⃣ Ghi kết quả mAP và các chỉ số vào bảng experiments.csv
     #    thay các giá trị mAP50, mAP5095, Precision, Recall theo kết quả thật
-    log_experiment_to_csv(
-        mAP50=0.90,
-        mAP5095=0.64,
-        Precision=0.82,
-        Recall=0.80
+   log_experiment_to_csv(
+        mAP50=0.22635,
+        mAP5095=0.1254,
+        Precision=0.49084,
+        Recall=0.22743
     )
