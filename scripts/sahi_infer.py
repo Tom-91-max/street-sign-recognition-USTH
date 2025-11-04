@@ -59,9 +59,9 @@ def run_sahi_inference():
 
 # ---------------- PHẦN 2: SO SÁNH VỚI BASELINE ----------------
 def compare_baseline_sahi(
-    baseline_dir="runs/pred_val",   # thư mục ảnh baseline (YOLO thường)
-    sahi_dir="runs/sahi_vis",       # thư mục ảnh SAHI (YOLO chia lát)
-    output_path="runs/comparison"   # nơi lưu ảnh so sánh
+    baseline_dir="runs/predict/baseline_val",   # thư mục ảnh baseline (YOLO thường)
+    sahi_dir="runs/sahi_vis",                   # thư mục ảnh SAHI (YOLO chia lát)
+    output_path="runs/comparison"               # nơi lưu ảnh so sánh
 ):
     os.makedirs(output_path, exist_ok=True)
 
@@ -108,7 +108,6 @@ def log_experiment_to_csv(
     Recall=0.22743,
     note="SAHI"
 ):
-):
     # Kiểm tra file CSV có tồn tại chưa — nếu chưa thì tạo header
     file_exists = os.path.exists(csv_path)
     with open(csv_path, mode="a", newline="", encoding="utf-8") as f:
@@ -138,7 +137,7 @@ if __name__ == "__main__":
 
     # 3️⃣ Ghi kết quả mAP và các chỉ số vào bảng experiments.csv
     #    thay các giá trị mAP50, mAP5095, Precision, Recall theo kết quả thật
-   log_experiment_to_csv(
+    log_experiment_to_csv(
         mAP50=0.22635,
         mAP5095=0.1254,
         Precision=0.49084,

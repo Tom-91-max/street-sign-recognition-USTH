@@ -1,0 +1,2 @@
+model,imgsz,epochs,augment,SAHI,mAP50,mAP5095,Precision,Recall,Note
+yolov8s,960,100,default,No,0.853,0.602,0.801,0.784,Baseline
