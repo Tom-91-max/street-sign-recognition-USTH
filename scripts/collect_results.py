@@ -1,4 +1,4 @@
-# scripts/collect_results.py - Role E (MLOps) - simplified version
+# scripts/collect_results.py - Role E (MLOps) 
 
 
 import sys, argparse
