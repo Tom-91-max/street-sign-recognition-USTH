@@ -36,6 +36,6 @@ E — MLOps & Evaluation (So sánh kết quả, logging)
 
 cách chạy dự án
 1. Chạy cơ bản cho xem biển báo
-yolo predict model=runs/detect/baseline_v8s_img640_e100_gpu/weights/best.pt source=0 show=True device=0 imgsz=640 conf=0.35 vid_stride=2
+yolo predict model=runs/detect/baseline_v8s_img640_e100_gpu/weights/best.pt source=0 show=True imgsz=640 conf=0.35 vid_stride=2 device=cpu
 2. Chạy và tự động lưu lại video
 yolo predict model=runs/detect/baseline_v8s_img640_e100_gpu/weights/best.pt source=0 show=True save=True imgsz=960 conf=0.25

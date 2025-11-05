@@ -1,8 +1,7 @@
-# scripts/collect_results.py - Role E (MLOps) - fixed version
-# ✅ Hỗ trợ YOLOv8 mới (metrics/... (B))
-# ✅ Fix lỗi "no numeric data to plot"
+# scripts/collect_results.py - Role E (MLOps) 
 
-import sys, re, argparse
+
+import sys, argparse
 from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -10,7 +9,7 @@ import matplotlib.pyplot as plt
 
 # === Hàm tiện ích ===
 def get_col(row_or_df, names):
-    """Trả về tên cột đầu tiên tồn tại trong danh sách."""
+    """Return the first existing column name found in the given list."""
     for n in names:
         if isinstance(row_or_df, pd.DataFrame):
             if n in row_or_df.columns:
@@ -47,25 +46,7 @@ def read_results_csv(csv_path: Path):
             "epochs": int(len(df)),
         }
     except Exception as e:
-        print(f"⚠️ Lỗi đọc {csv_path}: {e}")
-        return None
-
-
-# === Đọc kết quả từ results.txt (fallback) ===
-def read_results_txt(txt_path: Path):
-    try:
-        t = txt_path.read_text(encoding="utf-8", errors="ignore")
-        g = lambda pat: (re.search(pat, t, re.I))
-        val = lambda m: float(m.group(1)) if m else None
-
-        return {
-            "mAP50": val(g(r"mAP@?50\s*[:=]\s*([0-9.]+)")),
-            "mAP5095": val(g(r"(?:mAP@?50[-: ]?95|mAP50[:\-]95)\s*[:=]\s*([0-9.]+)")),
-            "Precision": val(g(r"precision\s*[:=]\s*([0-9.]+)")),
-            "Recall": val(g(r"recall\s*[:=]\s*([0-9.]+)")),
-            "epochs": 0,
-        }
-    except Exception:
+        print(f"⚠️ Error reading {csv_path}: {e}")
         return None
 
 
@@ -86,7 +67,7 @@ def infer_meta(run_dir: Path):
 def main(root="runs", out_dir="plots", out_csv="experiments.csv"):
     root = Path(root)
     if not root.exists():
-        print(f"❌ Folder không tồn tại: {root}")
+        print(f"❌ Folder not found: {root}")
         sys.exit(1)
 
     rows = []
@@ -104,23 +85,8 @@ def main(root="runs", out_dir="plots", out_csv="experiments.csv"):
                 "Note": note
             })
 
-    # Fallback: nếu có results.txt mà không có CSV
-    for p in root.rglob("results.txt"):
-        if (p.parent / "results.csv").exists():
-            continue
-        stats = read_results_txt(p)
-        if stats:
-            model, imgsz, sahi, note = infer_meta(p.parent)
-            rows.append({
-                "model": model, "imgsz": imgsz, "epochs": stats["epochs"],
-                "augment": "default", "SAHI": sahi,
-                "mAP50": stats["mAP50"], "mAP5095": stats["mAP5095"],
-                "Precision": stats["Precision"], "Recall": stats["Recall"],
-                "Note": note
-            })
-
     if not rows:
-        print("⚠️ Không tìm thấy results.csv hoặc results.txt.")
+        print("⚠️ No results.csv files found.")
         sys.exit(0)
 
     df = pd.DataFrame(rows)
@@ -129,7 +95,7 @@ def main(root="runs", out_dir="plots", out_csv="experiments.csv"):
     cols = ["model", "imgsz", "epochs", "augment", "SAHI",
             "mAP50", "mAP5095", "Precision", "Recall", "Note"]
     df[cols].to_csv(out_csv, index=False, encoding="utf-8")
-    print(f"✅ Saved table to: {out_csv}")
+    print(f"✅ Saved summary table to: {out_csv}")
     print(df[cols])
 
     # === Vẽ biểu đồ ===
@@ -144,13 +110,13 @@ def main(root="runs", out_dir="plots", out_csv="experiments.csv"):
         plt.close()
         print(f"✅ Saved plot to: {fig_path}")
     except Exception as e:
-        print(f"⚠️ Không thể vẽ biểu đồ: {e}")
+        print(f"⚠️ Could not generate plot: {e}")
 
 
 if __name__ == "__main__":
-    ap = argparse.ArgumentParser(description="Collect YOLO results and plot (fixed)")
-    ap.add_argument("--root", default="runs", help="Thư mục gốc để quét (e.g. runs/ hoặc runs/detect/)")
-    ap.add_argument("--out", default="plots", help="Thư mục lưu biểu đồ")
-    ap.add_argument("--csv", default="experiments.csv", help="Tên file CSV xuất ra")
+    ap = argparse.ArgumentParser(description="Collect YOLO results and generate summary + plots (CSV only)")
+    ap.add_argument("--root", default="runs", help="Root folder to scan (e.g. runs/ or runs/detect/)")
+    ap.add_argument("--out", default="plots", help="Folder to save plots")
+    ap.add_argument("--csv", default="experiments.csv", help="Output CSV filename")
     args = ap.parse_args()
     main(args.root, args.out, args.csv)
